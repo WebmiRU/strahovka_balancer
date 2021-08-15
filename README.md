@@ -1,6 +1,6 @@
-#Starahovka dev server/panel
+# Starahovka dev server/panel
 
-##Подготовка к работе
+## Подготовка к работе
 0. Установить в систему `docker` и `docker-compose`
 1. Создать общую сеть для работы docker-контейнеров `docker  docker network create strahovka` 
 2. Развернуть локально данный репозиторий `git clone https://github.com/WebmiRU/strahovka_balancer.git .`
