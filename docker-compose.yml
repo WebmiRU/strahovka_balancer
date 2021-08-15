@@ -6,17 +6,22 @@ services:
     container_name: strahovka_balancer
     ports:
       - 80:80
-      - 8080:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik/traefik.yml:/etc/traefik/traefik.yml
     networks:
       - strahovka
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.strahovka_balancer_traefik.rule=Host(`traefik.dev11.ru`)
+      - traefik.http.services.strahovka_balancer_traefik.loadbalancer.server.port=8080
 
   strahovka_balancer_nginx:
     image: nginx:alpine
     networks:
       - strahovka
+    restart: always
     labels:
       - traefik.enable=true
       - traefik.http.routers.strahovka_balancer_nginx.rule=Host(`dev11.ru`)
