@@ -19,6 +19,7 @@ services:
 
   strahovka_balancer_nginx:
     image: nginx:alpine
+    container_name: strahovka_balancer_nginx
     networks:
       - strahovka
     restart: always
