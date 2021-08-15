@@ -2,7 +2,7 @@
 
 ## Подготовка к работе
 0. Установить в систему `docker` и `docker-compose`
-1. Создать общую сеть для работы docker-контейнеров `docker  docker network create strahovka` 
+1. Создать общую сеть для работы docker-контейнеров `docker network create strahovka` 
 2. Развернуть локально данный репозиторий `git clone https://github.com/WebmiRU/strahovka_balancer.git .`
 3. Запустить docker-котейнеры `docker-compose up -d --build`
 4. Панель будет доступна по адресу: **[http://dev11.ru](http://dev11.ru)**
