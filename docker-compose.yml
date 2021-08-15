@@ -30,6 +30,7 @@ services:
       - strahovka_balancer
     volumes:
       - ./nginx/index.html:/usr/share/nginx/html/index.html
+      - ./nginx/lib/:/usr/share/nginx/html/nginx/lib/
 
   strahovka_portainer:
     container_name: strahovka_portainer
