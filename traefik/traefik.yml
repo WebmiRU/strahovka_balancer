@@ -1,0 +1,15 @@
+providers:
+  docker:
+    exposedByDefault: false
+    network: strahovka
+
+api:
+  dashboard: true
+  insecure: true
+
+entrypoints:
+  http:
+    address: ":80"
+
+#log:
+#  level: debug

@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  strahovka_balancer:
+    image: traefik:v2.4
+    container_name: strahovka_balancer
+    ports:
+      - 80:80
+      - 8080:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml
+    networks:
+      - strahovka
+
+  strahovka_balancer_nginx:
+    image: nginx:alpine
+    networks:
+      - strahovka
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.strahovka_balancer_nginx.rule=Host(`dev11.ru`)
+    depends_on:
+      - strahovka_balancer
+    volumes:
+      - ./nginx/index.html:/usr/share/nginx/html/index.html
+
+  strahovka_portainer:
+    container_name: strahovka_portainer
+    image: portainer/portainer-ce
+    volumes:
+      - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - strahovka
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.strahovka_portainer.rule=Host(`portainer.dev11.ru`)
+      - traefik.http.services.strahovka_portainer.loadbalancer.server.port=9000
+
+networks:
+  strahovka:
+    external:
+      name: strahovka
+
+volumes:
+  portainer_data:
+    external: false
